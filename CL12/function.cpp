@@ -1,5 +1,81 @@
 #include "function.h"
 
+
+//名前の読み込み，表示する
+void printName() {
+
+    //iniファイル読み込み
+    char currentDirectory[BUFFSIZE];
+    getCurrentDirectory(currentDirectory);
+    char section[BUFFSIZE];
+    char keyWord[BUFFSIZE];
+    char settingFile[BUFFSIZE];
+
+
+    //名前の読み込み
+    sprintf_s(section, "default");
+    sprintf_s(keyWord, "name1");
+    sprintf_s(settingFile, "%s\\setting.ini", currentDirectory);
+    char inName1[BUFFSIZE];
+    readChar(section, keyWord, "none", inName1, settingFile);
+
+    sprintf_s(section, "default");
+    sprintf_s(keyWord, "name2");
+    sprintf_s(settingFile, "%s\\setting.ini", currentDirectory);
+    char inName2[BUFFSIZE];
+    readChar(section, keyWord, "none", inName2, settingFile);
+
+    sprintf_s(section, "default");
+    sprintf_s(keyWord, "name3");
+    sprintf_s(settingFile, "%s\\setting.ini", currentDirectory);
+    char inName3[BUFFSIZE];
+    readChar(section, keyWord, "none", inName3, settingFile);
+
+    clear();
+    mvaddstr(LINES / 2 - 1, (COLS - 10) / 2, "Choosed Name");
+
+    mvaddstr(LINES / 2 + 1, (COLS - 10) / 2, inName1);
+    mvaddstr(LINES / 2 + 2, (COLS - 10) / 2, inName2);
+    mvaddstr(LINES / 2 + 3, (COLS - 10) / 2, inName3);
+
+}
+int selectName(int i, int ch) {
+
+    mvaddch(LINES / 2 + 1, (COLS - 10) / 2 - 1, '*');
+    switch (ch) {
+    case KEY_UP:
+        mvaddch(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, ' ');
+        if (i > 0) {
+            i--;
+        }
+        mvaddch(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, '*');
+    case KEY_DOWN:
+        mvaddch(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, ' ');
+        if (i < 3) {
+            i++;
+        }
+
+        mvaddch(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, '*');
+
+    }
+    return i;
+}
+void textWrite(struct Record* rp) {
+    FILE* fp;
+
+    errno_t error;//エラーコードを返す,正常なら0
+    error = fopen_s(&fp, "result.txt", "w");
+    if (error != 0)
+        fprintf_s(stderr, "failed to open");
+    else {
+        fprintf(fp, "Your 1st Score  %6.1f\n", rp->score1);
+        fprintf(fp, "Your 2st Score  %6.1f\n", rp->score2);
+        fprintf(fp, "Your 3st Score  %6.1f\n", rp->score3);
+        fprintf(fp, "Summary, Your total Score  %6.1f\n", rp->score);
+        fclose(fp);
+    }
+}
+
 // 全てのブロックのメモリを解放
 void freeBlocks(struct BLOCK* block)
 {
@@ -311,78 +387,3 @@ void printWall()
     }
 }
 
-//名前の読み込み，表示する
-void printName() {
-
-    //iniファイル読み込み
-    char currentDirectory[BUFFSIZE];
-    getCurrentDirectory(currentDirectory);
-    char section[BUFFSIZE];
-    char keyWord[BUFFSIZE];
-    char settingFile[BUFFSIZE];
-
-
-    //名前の読み込み
-    sprintf_s(section, "default");
-    sprintf_s(keyWord, "name1");
-    sprintf_s(settingFile, "%s\\setting.ini", currentDirectory);
-    char inName1[BUFFSIZE];
-    readChar(section, keyWord, "none", inName1, settingFile);
-
-    sprintf_s(section, "default");
-    sprintf_s(keyWord, "name2");
-    sprintf_s(settingFile, "%s\\setting.ini", currentDirectory);
-    char inName2[BUFFSIZE];
-    readChar(section, keyWord, "none", inName2, settingFile);
-
-    sprintf_s(section, "default");
-    sprintf_s(keyWord, "name3");
-    sprintf_s(settingFile, "%s\\setting.ini", currentDirectory);
-    char inName3[BUFFSIZE];
-    readChar(section, keyWord, "none", inName3, settingFile);
-
-    clear();
-    mvaddstr(LINES / 2 - 1, (COLS - 10) / 2, "Choosed Name");
-
-    mvaddstr(LINES / 2 + 1, (COLS - 10) / 2,inName1);
-    mvaddstr(LINES / 2 + 2, (COLS - 10) / 2,inName2);
-    mvaddstr(LINES / 2 + 3, (COLS - 10) / 2,inName3);
-
-}
-int selectName(int i,int ch) {
-
-    mvaddstr(LINES / 2 + 1, (COLS - 10) / 2 - 1, "*");
-    switch (ch) {
-    case KEY_UP:
-        mvaddstr(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, " ");
-        if (i <= 0) {
-
-        }
-        else i--;
-        mvaddstr(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, "*");
-    case KEY_DOWN:
-        mvaddstr(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, " ");
-        if (i > 3) {
-
-        }
-        else i++;
-        mvaddstr(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, "*");
-
-    }
-    return i;
-}
-void textWrite(struct Record* rp) {
-    FILE* fp;
-
-    errno_t error;//エラーコードを返す,正常なら0
-    error = fopen_s(&fp, "result.txt", "w");
-    if (error != 0)
-        fprintf_s(stderr, "failed to open");
-    else {
-        fprintf(fp, "Your 1st Score  %6.1f\n", rp->score1);
-        fprintf(fp, "Your 2st Score  %6.1f\n", rp->score2);
-        fprintf(fp, "Your 3st Score  %6.1f\n", rp->score3);
-        fprintf(fp, "Summary, Your total Score  %6.1f\n", rp->score);
-        fclose(fp);
-    }
-}
