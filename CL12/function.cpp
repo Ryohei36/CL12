@@ -278,6 +278,7 @@ void printGameOver(struct Record *rp)
     /* THANK YOU FOR PLAYING */
     clear();
     printRecord(rp);
+    textWrite(rp);
    /* mvprintw(LINES / 2, (COLS - 20) / 2, "Thank you for playing");
     mvprintw(LINES / 2 + 2, (COLS - 10) / 2, "[r]: restart");
     mvprintw(LINES / 2 + 4, (COLS - 10) / 2, "[q]: quit");*/
@@ -287,14 +288,14 @@ void printGameOver(struct Record *rp)
 void printGameName()
 {
     clear();
-    mvprintw(LINES / 2 - 4, (COLS - 72) / 2, "BBBBBB                               D");
-    mvprintw(LINES / 2 - 3, (COLS - 72) / 2, "B    B                               D");
-    mvprintw(LINES / 2 - 2, (COLS - 72) / 2, "B    B                               D");
-    mvprintw(LINES / 2 - 1, (COLS - 72) / 2, "BBBBB    OOO   U    U  N NNNN    DDDDD");
-    mvprintw(LINES / 2, (COLS - 72) / 2, "B  B    O   O  U    U  NN    N  D    D");
-    mvprintw(LINES / 2 + 1, (COLS - 72) / 2, "B   B   O   O  U    U  N     N  D    D");
-    mvprintw(LINES / 2 + 2, (COLS - 72) / 2, "B    B  O   O  U    U  N     N  D    D");
-    mvprintw(LINES / 2 + 3, (COLS - 72) / 2, "BBBBBB   OOO    UUUU   N     N   DDDDD");
+    mvprintw(LINES / 2 - 4, (COLS - 72) / 2, "BBBBBB                               D  BBBBBB         L   L");
+    mvprintw(LINES / 2 - 3, (COLS - 72) / 2, "B    B                               D  B    B         L   L");
+    mvprintw(LINES / 2 - 2, (COLS - 72) / 2, "B    B                               D  B    B         L   L");
+    mvprintw(LINES / 2 - 1, (COLS - 72) / 2, "BBBBB    OOO   U    U  N NNNN    DDDDD  BBBBB       A  L   L ");
+    mvprintw(LINES / 2, (COLS - 72) / 2, "B  B    O   O  U    U  NN    N  D    D  B  B     AAAA  L   L");
+    mvprintw(LINES / 2 + 1, (COLS - 72) / 2, "B   B   O   O  U    U  N     N  D    D  B   B   A   A  L   L");
+    mvprintw(LINES / 2 + 2, (COLS - 72) / 2, "B    B  O   O  U    U  N     N  D    D  B    B  A   A  L   L");
+    mvprintw(LINES / 2 + 3, (COLS - 72) / 2, "BBBBBB   OOO    UUUU   N     N   DDDDD  BBBBBB   AAAA  L   L");
 }
 
 // 両側の壁を生成
@@ -369,5 +370,19 @@ int selectName(int i,int ch) {
 
     }
     return i;
-  
+}
+void textWrite(struct Record* rp) {
+    FILE* fp;
+
+    errno_t error;//エラーコードを返す,正常なら0
+    error = fopen_s(&fp, "result.txt", "w");
+    if (error != 0)
+        fprintf_s(stderr, "failed to open");
+    else {
+        fprintf(fp, "Your 1st Score  %6.1f\n", rp->score1);
+        fprintf(fp, "Your 2st Score  %6.1f\n", rp->score2);
+        fprintf(fp, "Your 3st Score  %6.1f\n", rp->score3);
+        fprintf(fp, "Summary, Your total Score  %6.1f\n", rp->score);
+        fclose(fp);
+    }
 }

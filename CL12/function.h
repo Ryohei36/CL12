@@ -72,4 +72,5 @@ void printGameName();
 void printWall();
 void printName();
 int selectName(int i,int ch);
+void textWrite(struct Record* rp);
 
