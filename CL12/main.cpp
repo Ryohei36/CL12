@@ -32,8 +32,6 @@ void run()
 
     t1, t2, t3 = time(NULL);
 
-
-
     // ‹L˜^‚Ìİ’è
     rec.level = 1;         //ƒŒƒxƒ‹
 
