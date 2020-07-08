@@ -68,12 +68,11 @@ INTRO:
         }
         else if (ch == 'q') return;
     }
+
 SELECT:
     //ユーザーの名前を選択
     printName();
-    //セレクトのポインタ
-    mvaddstr(LINES / 2 + 1, (COLS - 10) / 2 - 1, "*");
-
+    mvaddch(LINES / 2 + 1 , (COLS - 10) / 2 - 1, '*');
     int n = 0;
     /* キー入力 [s]を押したらスタート　[q]を押したら終了*/
     while (1) {

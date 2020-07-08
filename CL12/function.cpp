@@ -39,27 +39,23 @@ void printName() {
     mvaddstr(LINES / 2 + 3, (COLS - 10) / 2, inName3);
 
 }
-int selectName(int i, int ch) {
 
-    mvaddch(LINES / 2 + 1, (COLS - 10) / 2 - 1, '*');
+//デフォルトネームからユーザの名前を選択
+int selectName(int i, int ch) {
     switch (ch) {
     case KEY_UP:
         mvaddch(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, ' ');
-        if (i > 0) {
-            i--;
-        }
+        i--;
         mvaddch(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, '*');
     case KEY_DOWN:
         mvaddch(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, ' ');
-        if (i < 3) {
-            i++;
-        }
-
+        i++;
         mvaddch(LINES / 2 + 1 + i, (COLS - 10) / 2 - 1, '*');
-
     }
     return i;
 }
+
+//textファイルに結果を書き込む
 void textWrite(struct Record* rp) {
     FILE* fp;
 
