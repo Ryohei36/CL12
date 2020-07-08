@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\CL10_\CL89\Setting.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\CL10_\CL89\stdafx.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="function.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ソースファイル">
+      <UniqueIdentifier>{13e55cfe-6f8e-40b2-a048-5f4c48755f4c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\CL10_\CL89\stdafx.h">
+      <Filter>ソースファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CL10_\CL89\targetver.h">
+      <Filter>ソースファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CL10_\CL89\Setting.h">
+      <Filter>ソースファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>ソースファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="function.h">
+      <Filter>ソースファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
